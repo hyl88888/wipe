@@ -19,7 +19,8 @@ canvas.addEventListener(fn1,function(evt){
 	//获取鼠标在视口的坐标，传递参数到drawPoint
 	moveX = device ? event.touches[0].clientX : event.clientX;
 	moveY = device ? event.touches[0].clientY : event.clientY;
-	draePoint(context,moveX,moveY);
+	// draePoint(context,moveX,moveY);
+	drawT(context,moveX,moveY);
 	isMouseDown = true;
 },false);
 
@@ -31,7 +32,8 @@ canvas.addEventListener(fn2,function(evt){
 		var X = device ? event.touches[0].clientX : event.clientX;
 		var Y = device ? event.touches[0].clientY : event.clientY;
 
-		drawLine(context,moveX,moveY,X,Y);
+		// drawLine(context,moveX,moveY,X,Y);
+		drawT(context,moveX,moveY,X,Y);
 		//每次的结束点变成下一次画线的开始点
 		moveX = X;
 		moveY = Y;
@@ -59,7 +61,7 @@ function drawMask(context){
 	context.globalCompositeOperation = "destination-out";
 }
 //在画布上画半径为30的圆
-function draePoint(context,pisX,pisY){
+/*function draePoint(context,pisX,pisY){
 	console.log("传递的实参个数："+arguments.length);
 	//保存当前绘图状态
 	context.save();
@@ -69,6 +71,7 @@ function draePoint(context,pisX,pisY){
 	context.fill();
 	context.restore();
 }
+//画线
 function drawLine(context,x1,y1,x2,y2){
 	console.log("传递的实参个数："+arguments.length);
 	//保存当前绘图状态
@@ -82,8 +85,30 @@ function drawLine(context,x1,y1,x2,y2){
 	context.stroke();
 	//回复原有绘图状态
 	context.restore();
-}
+}*/
 
+//使用单个函实现画点画线
+function drawT(console,x1,y1,x2,y2){
+	context.save();
+	context.beginPath();
+	if( arguments.length === 3 ){
+		//调用的是画点功能
+		context.arc(x1,y1,radius,0,2*Math.PI);
+		context.fillStyle = "rgb(242,103,91)";
+		context.fill();
+	}else if( arguments.length === 5 ){
+		//调用的是画线功能
+		context.save();
+		context.lineCap = "round";
+		context.moveTo(x1,y1);
+		context.lineTo(x2,y2);
+		context.lineWidth = radius*2;
+		context.stroke();
+	}else{
+		return false;
+	}
+	context.restore();
+}
 
 //在canvas画布上监听自定义时间"mousedown",调用drawPoint函数
 /*canvas.addEventListener("mousedown",function(evt){
