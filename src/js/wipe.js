@@ -27,14 +27,9 @@ canvas.addEventListener(fn2,function(evt){
 	//判断，当isMouseDown为true时，才能执行下面的操作
 	if(isMouseDown){
 		var event = evt || window.event;
-		if(device){
-			event.preventDefault();
-			var X = event.touches[0].clientX;
-			var Y = event.touches[0].clientY;
-		}else{
-			var X = event.clientX;
-			var Y = event.clientY;
-		}
+		event.preventDefault();
+		var X = device ? event.touches[0].clientX : event.clientX;
+		var Y = device ? event.touches[0].clientY : event.clientY;
 
 		drawLine(context,moveX,moveY,X,Y);
 		//每次的结束点变成下一次画线的开始点
