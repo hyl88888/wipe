@@ -87,6 +87,7 @@ function drawLine(context,x1,y1,x2,y2){
 	context.restore();
 }*/
 
+//使用单个函实现画点画线
 function drawT(console,x1,y1,x2,y2){
 	context.save();
 	context.beginPath();
