@@ -10,7 +10,7 @@ function Wipe(obj){
 	this.context = this.canvas.getContext("2d");
 	this._w = obj.width;
 	this._h = obj.height;
-	console.log(this._h);
+	// console.log(this._h);
 	this.canvas.width = this._w;
 	this.canvas.height = this._h;
 	this.coverType = obj.coverType;//覆盖的是颜色还是图片
@@ -31,8 +31,8 @@ function Wipe(obj){
 	this.device = (/android|webos|iPhone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
 	this.drawMask();
 	this.click();
-}
 
+}
 
 //drawT()画点画线函数
 //参数：如果只有两个参数，函数功能画圆，x1,y1即圆点的中心坐标
@@ -95,6 +95,7 @@ Wipe.prototype.drawMask = function(){
 			that.context.globalCompositeOperation = "destination-out";
 		}
 	}
+
 }
 
 
@@ -111,7 +112,7 @@ Wipe.prototype.click = function(){
 		//获取鼠标在视口的坐标，传递参数到drawPoint
 		that.moveX = that.device ? event.touches[0].clientX-getAllLeft(this)+sLeft : event.clientX-getAllLeft(this)+sLeft;
 		that.moveY = that.device ? event.touches[0].clientY-getAllTop(this)+sTop : event.clientY-getAllTop(this)+sTop;
-		console.log(that.moveX,that.moveY);
+		// console.log(that.moveX,that.moveY);
 		// draePoint(context,moveX,moveY);
 		that.drawT(that.moveX,that.moveY);
 		that.isMouseDown = true;
@@ -141,13 +142,15 @@ Wipe.prototype.click = function(){
 		//还原isMouseDown 为false
 		that.isMouseDown = false;
 
-		var percent = that.getTransparency(that.context);
-		//调用同名的全局函数
-		that.callback.call(null,percent);
-		//透明面积超过用户指定透明面积
-		if(percent>that.transpercent){
-			that.grawClear(that.context);
-		}
+		setTimeout(function(){
+			var percent = that.getTransparency(that.context);
+			//调用同名的全局函数
+			that.callback.call(null,percent);
+			//透明面积超过用户指定透明面积
+			if(percent>that.transpercent){
+				that.grawClear(that.context);
+			}
+		},1000);
 	},false);
 }
 
