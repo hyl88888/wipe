@@ -43,4 +43,21 @@ PC端实现涂抹擦除效果，超过50%的涂抹面积可以查看全部。涂
 > 	transpercent:50, //透明面积占整个画布的百分比,超出此数字显示全部画布
 > 	callback:wipedCallback  //用户自定义回调函数名称
 > }
- ``` 3、初始化wipe插件，并将上一步的配置变量作为参数传入 例如：``` new Wipe(wipeConfig) ``` 4、编写回调函数，用户在涂抹完成后的后继操作必须写在此回调函数中例如：```function wipedCallback(percent){	if(percent>50){		console.log("透明面积超过50%,查看底图");	}} ```
+ ```
+ 3、初始化wipe插件，并将上一步的配置变量作为参数传入
+ 例如：
+```
+new Wipe(wipeConfig)
+```
+
+4、编写回调函数，用户在涂抹完成后的后继操作必须写在此回调函数中
+例如：
+```
+function wipedCallback(percent){
+	if(percent>50){
+		console.log("透明面积超过50%,查看底图");
+	}
+}
+```
+## var 3.0.1 ##
+1、擦除后透明点面积延迟1秒钟输出
